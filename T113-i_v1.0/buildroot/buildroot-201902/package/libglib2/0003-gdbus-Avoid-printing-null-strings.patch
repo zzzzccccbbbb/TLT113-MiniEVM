@@ -1,0 +1,47 @@
+From: Philip Withnall <withnall@endlessm.com>
+Date: Wed, 20 Feb 2019
+Subject: [PATCH] gdbus: Avoid printing null strings
+
+This mostly affects the 2.56 branch, but, given that GCC 9 is being
+stricter about passing null string pointers to printf-like functions, it
+might make sense to proactively fix such calls.
+
+Upstream: https://gitlab.gnome.org/GNOME/glib/commit/4df779b7e466bf851d42b030ce8249e39135cc5b
+Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
+
+--- a/gio/gdbusauth.c
++++ b/gio/gdbusauth.c
+@@ -1299,9 +1299,9 @@
+                                                     &line_length,
+                                                     cancellable,
+                                                     error);
+-          debug_print ("SERVER: WaitingForBegin, read '%s'", line);
+           if (line == NULL)
+             goto out;
++          debug_print ("SERVER: WaitingForBegin, read '%s'", line);
+           if (g_strcmp0 (line, "BEGIN") == 0)
+             {
+               /* YAY, done! */
+--- a/gio/gdbusmessage.c
++++ b/gio/gdbusmessage.c
+@@ -2699,7 +2699,6 @@
+   if (message->body != NULL)
+     {
+       gchar *tupled_signature_str;
+-      tupled_signature_str = g_strdup_printf ("(%s)", signature_str);
+       if (signature == NULL)
+         {
+           g_set_error (error,
+@@ -2707,10 +2706,10 @@
+                        G_IO_ERROR_INVALID_ARGUMENT,
+                        _("Message body has signature “%s” but there is no signature header"),
+                        signature_str);
+-          g_free (tupled_signature_str);
+           goto out;
+         }
+-      else if (g_strcmp0 (tupled_signature_str, g_variant_get_type_string (message->body)) != 0)
++      tupled_signature_str = g_strdup_printf ("(%s)", signature_str);
++      if (g_strcmp0 (tupled_signature_str, g_variant_get_type_string (message->body)) != 0)
+         {
+           g_set_error (error,
+                        G_IO_ERROR,

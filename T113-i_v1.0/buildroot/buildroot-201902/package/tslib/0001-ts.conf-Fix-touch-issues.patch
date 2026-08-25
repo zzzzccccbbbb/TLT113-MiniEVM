@@ -1,0 +1,29 @@
+From f0f0d3d6cce5d6f78f6bf4c121effe588bca4765 Mon Sep 17 00:00:00 2001
+From: zxb <zxb@tronlong.com>
+Date: Tue, 30 May 2023 13:39:32 +0800
+Subject: [PATCH] ts.conf: Fix touch issues
+
+TFT LCD and LVDS resistive touch screen, ts Draw test drift phenomenon
+due to abnormal first point coordinates
+
+Signed-off-by: zxb <zxb@tronlong.com>
+---
+ etc/ts.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/etc/ts.conf b/etc/ts.conf
+index 08adcbb..b3987b6 100644
+--- a/etc/ts.conf
++++ b/etc/ts.conf
+@@ -11,7 +11,7 @@ module_raw input
+ ################
+ 
+ # Uncomment if first or last samples are unreliable
+-# module skip nhead=1 ntail=1
++module skip nhead=1 ntail=1
+ 
+ # Uncomment if needed for devices that measure pressure
+ module pthres pmin=1
+-- 
+2.17.1
+

@@ -1,0 +1,80 @@
+From: Ilya Lipnitskiy <ilya.lipnitskiy@gmail.com>
+Date: Sat, 13 Feb 2021 19:32:08 -0800
+Subject: [PATCH] configure: fix __xmknod{,at} pointer argument for glibc 2.33+
+
+Same logic as the upstream configure.ac change, applied directly to
+the generated configure script so host-autoconf/autoreconf is not required.
+
+Signed-off-by: Cursor Agent <agent@local>
+---
+ configure | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+--- a/configure
++++ b/configure
+@@ -12418,7 +12418,7 @@
+ 
+        int __xmknod  ( int ver,
+                        const char *pathname ,
+-                       mode_t  mode ,  dev_t dev);
++                       mode_t  mode ,  dev_t *dev);
+ 
+   ;
+   return 0;
+@@ -12426,17 +12426,17 @@
+ _ACEOF
+ if ac_fn_c_try_compile "$LINENO"; then :
+ 
+-   $as_echo "#define XMKNOD_FRTH_ARG /**/" >>confdefs.h
++   $as_echo "#define XMKNOD_FRTH_ARG *" >>confdefs.h
+ 
+-   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no extra *" >&5
+-$as_echo "no extra *" >&6; }
++   { $as_echo "$as_me:${as_lineno-$LINENO}: result: needs *" >&5
++$as_echo "needs *" >&6; }
+ 
+ else
+ 
+-   $as_echo "#define XMKNOD_FRTH_ARG *" >>confdefs.h
++   $as_echo "#define XMKNOD_FRTH_ARG /**/" >>confdefs.h
+ 
+-   { $as_echo "$as_me:${as_lineno-$LINENO}: result: needs *" >&5
+-$as_echo "needs *" >&6; }
++   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no extra *" >&5
++$as_echo "no extra *" >&6; }
+ 
+ 
+ fi
+@@ -12460,7 +12460,7 @@
+        int __xmknodat  ( int ver,
+                          int dirfd,
+                          const char *pathname ,
+-                         mode_t  mode ,  dev_t dev);
++                         mode_t  mode ,  dev_t *dev);
+ 
+   ;
+   return 0;
+@@ -12468,17 +12468,17 @@
+ _ACEOF
+ if ac_fn_c_try_compile "$LINENO"; then :
+ 
+-   $as_echo "#define XMKNODAT_FIFTH_ARG /**/" >>confdefs.h
++   $as_echo "#define XMKNODAT_FIFTH_ARG *" >>confdefs.h
+ 
+-   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no extra *" >&5
+-$as_echo "no extra *" >&6; }
++   { $as_echo "$as_me:${as_lineno-$LINENO}: result: needs *" >&5
++$as_echo "needs *" >&6; }
+ 
+ else
+ 
+-   $as_echo "#define XMKNODAT_FIFTH_ARG *" >>confdefs.h
++   $as_echo "#define XMKNODAT_FIFTH_ARG /**/" >>confdefs.h
+ 
+-   { $as_echo "$as_me:${as_lineno-$LINENO}: result: needs *" >&5
+-$as_echo "needs *" >&6; }
++   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no extra *" >&5
++$as_echo "no extra *" >&6; }
+ 
+ 
+ fi
