@@ -1,0 +1,160 @@
+# =============================================================================
+# TLT113-MiniEVM / Allwinner Lichee SDK
+# 提交：源码、板级配置、厂商预置 boot 二进制、补丁
+# 忽略：out、工具链、dl、Qt、与 T113 无关的巨型树、媒体/安装包
+# =============================================================================
+
+# ----- 本机选板配置（含绝对路径）-----
+T113-i_v1.0/.buildconfig
+*.buildconfig
+
+# ----- 编译总输出 / 打包输出 -----
+T113-i_v1.0/out/
+**/out/
+pack_out/
+
+# ----- 烧录镜像（保留 device/ 下厂商 .bin）-----
+*.img
+*.img.gz
+*.img.xz
+
+# ----- Buildroot 下载缓存与独立 output -----
+T113-i_v1.0/buildroot/**/dl/
+T113-i_v1.0/buildroot/**/output/
+**/buildroot-*/dl/
+**/buildroot-*/output/
+
+# ----- 交叉工具链（压缩包与解压目录）-----
+T113-i_v1.0/build/toolchain/
+T113-i_v1.0/brandy/brandy-2.0/tools/toolchain/
+**/gcc-linaro*.tar.*
+**/gcc-linaro*.bz2
+**/gcc-arm-none-eabi*.tar.*
+**/riscv64-*.tar.xz
+**/riscv64-*.tar.gz
+
+# ----- Qt 解压源码树 -----
+T113-i_v1.0/platform/framework/qt/qt-everywhere-src-*/
+
+# ----- DSP / Xtensa 预装工具与下载包 -----
+T113-i_v1.0/rtos-dsp/xtensa-files/install/
+T113-i_v1.0/rtos-dsp/xtensa-files/downloads/
+T113-i_v1.0/rtos-dsp/xtensa-files/RI-*/
+T113-i_v1.0/rtos-dsp/freertos/XtDevTools/downloads/
+T113-i_v1.0/rtos-dsp/freertos/XtDevTools/install/
+
+# ----- 预置 rootfs / sysroot 大压缩包 -----
+T113-i_v1.0/device/config/rootfs_tar/
+T113-i_v1.0/test/dragonboard/common/rootfs/*.tar.gz
+T113-i_v1.0/test/dragonboard/common/rootfs/*.tar.bz2
+T113-i_v1.0/test/dragonboard/common/rootfs/*.tgz
+T113-i_v1.0/test/dragonboard/output/
+
+# ----- Windows 烧录工具（Linux 开发不需要）-----
+T113-i_v1.0/tools/tools_win/
+
+# ----- 车载/演示媒体与无关大二进制 -----
+T113-i_v1.0/platform/framework/auto/
+*.yuv
+*.msi
+*.7z
+*.ttc
+*.wav
+**/bsa_server
+T113-i_v1.0/platform/core/graphics/samples/
+T113-i_v1.0/platform/core/graphics/mali-bifrost/**/libmali.so*
+T113-i_v1.0/platform/core/graphics/gpu_um_pub/**/libmali.so*
+T113-i_v1.0/kernel/linux-5.4/rootfs*.cpio.gz
+T113-i_v1.0/build/ramdisk/*.cpio.gz
+T113-i_v1.0/kernel/linux-5.4/modules/
+T113-i_v1.0/kernel/linux-5.4/Documentation/
+T113-i_v1.0/kernel/linux-5.4/android/
+
+# ----- T113 用不到的 PC/其它 SoC DRM（约 180MB+）-----
+T113-i_v1.0/kernel/linux-5.4/drivers/gpu/drm/amd/
+T113-i_v1.0/kernel/linux-5.4/drivers/gpu/drm/i915/
+T113-i_v1.0/kernel/linux-5.4/drivers/gpu/drm/radeon/
+T113-i_v1.0/kernel/linux-5.4/drivers/gpu/drm/nouveau/
+T113-i_v1.0/kernel/linux-5.4/drivers/gpu/drm/msm/
+T113-i_v1.0/kernel/linux-5.4/drivers/gpu/drm/vmwgfx/
+T113-i_v1.0/kernel/linux-5.4/drivers/gpu/drm/gma500/
+T113-i_v1.0/kernel/linux-5.4/drivers/gpu/drm/omapdrm/
+T113-i_v1.0/kernel/linux-5.4/drivers/gpu/drm/exynos/
+T113-i_v1.0/kernel/linux-5.4/drivers/gpu/drm/tegra/
+T113-i_v1.0/kernel/linux-5.4/drivers/gpu/drm/vc4/
+T113-i_v1.0/kernel/linux-5.4/drivers/gpu/drm/rockchip/
+T113-i_v1.0/kernel/linux-5.4/drivers/gpu/drm/etnaviv/
+T113-i_v1.0/kernel/linux-5.4/drivers/infiniband/
+T113-i_v1.0/kernel/linux-5.4/drivers/s390/
+T113-i_v1.0/kernel/linux-5.4/drivers/acpi/
+
+# ----- 常见巨型归档 -----
+*.tar.xz
+*.tar.bz2
+*.tgz
+*.tar.gz
+
+# ----- 源码树内编译中间文件（不要用全局 *.bin，会误伤 boot0/fes/optee）-----
+*.o
+*.o.*
+*.ko
+*.mod
+*.mod.c
+*.cmd
+.*.cmd
+*.order
+*.symvers
+*.su
+*.d
+Module.symvers
+modules.order
+modules.builtin
+modules.builtin.modinfo
+
+# 本地生成的内核/uboot 配置（defconfig 源文件仍提交）
+**/.config
+**/.config.old
+**/..config.tmp
+**/.config.cmd
+
+# U-Boot / SPL 生成目录
+**/include/generated/
+**/include/config/
+**/include/autoconf.mk
+**/include/autoconf.mk.dep
+
+# ----- 编辑器 / OS / Python -----
+__pycache__/
+*.py[cod]
+*$py.class
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.user
+*.user.*
+
+# ----- 日志与备份 -----
+*.log
+*.bak
+*.orig
+*.rej
+cscope.*
+tags
+TAGS
+GPATH
+GRTAGS
+GTAGS
+
+# ----- DSP/RTOS 本地构建目录 -----
+**/Debug/
+**/Release/
+
+# ----- 用户态示例交叉编译产物 -----
+apps/led/led_ctrl
+apps/net/tcp_echo
+apps/**/led_ctrl
+apps/**/tcp_echo

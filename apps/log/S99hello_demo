@@ -1,0 +1,35 @@
+#!/bin/sh
+# Optional boot helper: start LED blink + log loop in background.
+# On board, append to /etc/init.d/rcS (backup first):
+#   /root/apps/log/S99hello_demo start
+#
+# Or run once after login:
+#   /root/apps/log/S99hello_demo start
+
+LED=/root/apps/led/led_ctrl
+LOG=/root/apps/log/log_loop.sh
+
+start() {
+	if [ -x "$LED" ]; then
+		"$LED" blink 200 800 >/dev/null 2>&1 &
+		echo "led_ctrl blink started pid=$!"
+	else
+		echo "skip led: $LED not found (deploy binary first)"
+	fi
+	if [ -x "$LOG" ]; then
+		"$LOG" 60 >/dev/null 2>&1 &
+		echo "log_loop started pid=$!"
+	fi
+}
+
+stop() {
+	killall led_ctrl 2>/dev/null
+	killall log_loop.sh 2>/dev/null
+	echo "stopped"
+}
+
+case "$1" in
+	start) start ;;
+	stop) stop ;;
+	*) echo "Usage: $0 start|stop"; exit 1 ;;
+esac
