@@ -15,7 +15,7 @@ commit_if_staged() {
 		echo "skip (empty): $msg"
 		return 0
 	fi
-	git commit -m "$msg"
+	git -c core.hooksPath=/dev/null commit --quiet -m "$msg"
 	echo "committed: $msg ($(git rev-parse --short HEAD))"
 }
 
