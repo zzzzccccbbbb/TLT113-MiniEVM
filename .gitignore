@@ -165,6 +165,7 @@ apps/qt/runtime/sf_deps/
 apps/qt/runtime/Qt_5.12.5_sf.tar.gz
 apps/qt/runtime/*.so*
 apps/qt/runtime/qtenv.sh
+apps/qt/runtime/*.path
 apps/qt/**/bin/image_display
 apps/qt/**/bin/led_control
 apps/qt/**/src/image_display
