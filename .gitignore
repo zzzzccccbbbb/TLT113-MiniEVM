@@ -158,3 +158,19 @@ apps/led/led_ctrl
 apps/net/tcp_echo
 apps/**/led_ctrl
 apps/**/tcp_echo
+# Qt USB staging (contains 20MB+ Qt_5.12.5.tar.gz)
+apps/qt/usb_payload/
+apps/qt/runtime/sf_stage/
+apps/qt/runtime/sf_deps/
+apps/qt/runtime/Qt_5.12.5_sf.tar.gz
+apps/qt/runtime/*.so*
+apps/qt/runtime/qtenv.sh
+apps/qt/**/bin/image_display
+apps/qt/**/bin/led_control
+apps/qt/**/src/image_display
+apps/qt/**/src/led_control
+apps/qt/**/src/moc_*
+apps/qt/**/src/*.o
+apps/qt/**/src/Makefile
+apps/qt/**/src/.qmake.stash
+apps/qt/**/src/moc_predefs.h

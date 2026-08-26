@@ -10,6 +10,7 @@
 | `log/` | 系统负载采集脚本、可选开机助手 |
 | `mqtt/` | 用板载 mosquitto 收消息控灯 |
 | `net/` | 最小 TCP echo 服务 |
+| `qt/` | Qt demo（先装运行库 + 官方 bin，再 SDK qmake）；见 `qt/README.md` |
 
 LED 为 GPIO（PG11），breath 为软件占空比，不是硬件 PWM。
 
